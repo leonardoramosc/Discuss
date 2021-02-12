@@ -5,6 +5,7 @@ defmodule DiscussWeb.TopicController do
   alias Discuss.Discussions.Topic
 
   plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
+  plug :check_topic_owner when action in [:update, :edit, :delete]
 
   def index(conn, _params) do
 
@@ -81,5 +82,19 @@ defmodule DiscussWeb.TopicController do
     conn
     |> put_flash(:info, "Topic deleted successfully.")
     |> redirect(to: Routes.topic_path(conn, :index))
+  end
+
+  def check_topic_owner(conn, _params) do
+    #obtener el id del topic
+    %{params: %{"id" => topic_id}} = conn
+
+    if Discussions.get_topic!(topic_id).user_id == conn.assigns.user.id do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You cannot edit that")
+      |> redirect(to: Routes.topic_path(conn, :index))
+      |> halt()
+    end
   end
 end
