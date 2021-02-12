@@ -7,6 +7,7 @@ defmodule Discuss.Discussions do
   alias Discuss.Repo
 
   alias Discuss.Discussions.Topic
+  alias Discuss.Accounts.User
 
   @doc """
   Returns the list of topics.
@@ -49,8 +50,9 @@ defmodule Discuss.Discussions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_topic(attrs \\ %{}) do
-    %Topic{}
+  def create_topic(%User{} = user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:topics)
     |> Topic.changeset(attrs)
     |> Repo.insert()
   end

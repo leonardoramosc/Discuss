@@ -7,8 +7,6 @@ defmodule DiscussWeb.TopicController do
   plug DiscussWeb.Plugs.RequireAuth when action in [:new, :create, :edit, :update, :delete]
 
   def index(conn, _params) do
-    IO.puts("+++++++++++++++++++++++++++++++++++++++++++")
-    IO.inspect(conn.assigns)
 
     topics = Discussions.list_topics()
     render(conn, "index.html", topics: topics)
@@ -19,8 +17,11 @@ defmodule DiscussWeb.TopicController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"topic" => topic_params}) do
-    case Discussions.create_topic(topic_params) do
+  def create(conn, %{"topic" => topic}) do
+
+    user = conn.assigns.user
+
+    case Discussions.create_topic(user, topic) do
       {:ok, topic} ->
         conn
         |> put_flash(:info, "Topic created successfully.")
