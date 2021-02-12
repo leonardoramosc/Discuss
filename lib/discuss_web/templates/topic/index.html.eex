@@ -5,10 +5,12 @@
     <li class="collection-item">
       <%= link topic.title, to: Routes.topic_path(@conn, :show, topic) %>
 
-      <div class="right">
-        <%= link "Edit", to: Routes.topic_path(@conn, :edit, topic) %>
-        <%= link "Delete", to: Routes.topic_path(@conn, :delete, topic), method: :delete, data: [confirm: "Are you sure?"] %>
-      </div>
+      <%= if @conn.assigns.user.id == topic.user_id do %>
+        <div class="right">
+          <%= link "Edit", to: Routes.topic_path(@conn, :edit, topic) %>
+          <%= link "Delete", to: Routes.topic_path(@conn, :delete, topic), method: :delete, data: [confirm: "Are you sure?"] %>
+        </div>
+      <% end %>
     </li>
   <% end %>
 </ul>
