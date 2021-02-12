@@ -1,0 +1,41 @@
+OAuth Secret Github: a27e30be3ba27983b6dd45103f6a206b2101a296
+
+PARA INICIAR EL PROYECTO:
+
+  * Run phx.new `<propject_name>`
+  * Ir a la carpeta config/dev.exs
+  * Agregar el usuario de postgres y la contraseña
+  * Si aparece el siguiente error: `(Mix) The database for Discuss.Repo couldn't be created: command timed out`,
+    ignorarlo y revisar en postgres si se ha creado la base de datos, es comun que muestre este error pero aun
+    asi se cree la base de datos.
+
+FLUJO DE MANEJO DE PETICIONES:
+  1.- Incoming Request
+  2.- Ensure its an HTML request
+  3.- See if it has a session
+  4.- Do a security check
+  5.- Put on HTTP headers for a browser
+  6.- See what the request was trying to access
+  7.- Formulate and return a response
+
+- COMANDO PARA GENERAR MIGRACIONES:
+  -> mix ecto.gen.migration <migration_name>
+
+  - El archivo de migracion esta en priv/repo/migrations
+  - Dentro de la funcion change se especifica la estructura
+    de la base de datos (las tablas, etc).
+
+- COMANDO PARA EJECUTAAR LAS MIGRACIONES
+  -> mix ecto.migrate
+
+- FLUJO DE DESARROLLO:
+  1.- Crear la routa en router.ex.
+  2.- Crear el controlador en la carpeta "controllers". NOTA:
+    por convencion, el nombre del recurso en el controlador debe estar en
+    singular. ej.: en lugar de "TopicsController" se escribe: "TopicController"
+  3.- Crear el modelo que usara el controlador.
+
+- COMANDO PARA CREAR UN CONTEXTO PARA HTML
+  - mix phx.gen.html <NOMBRE_CONTEXTO> <NOMBRE_MODELO> <NOMBRE_TABLA> <COLUMNA>:<TIPO_DE_DATO_COLUMNA>. Ejemplo:
+  - mix phx.gen.html Discussions Topic topics title:string
+

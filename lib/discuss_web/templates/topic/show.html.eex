@@ -1,0 +1,20 @@
+<h1>Show Topic</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @topic.title %>
+  </li>
+
+  <li>
+    <strong>Upvotes:</strong>
+    <%= @topic.upvotes %>
+  </li>
+
+</ul>
+
+<span> <%= link "Upvote", to: Routes.topic_upvote_path(@conn, :upvote, @topic) %> </span>
+
+<span><%= link "Edit", to: Routes.topic_path(@conn, :edit, @topic) %></span>
+<span><%= link "Back", to: Routes.topic_path(@conn, :index) %></span>
