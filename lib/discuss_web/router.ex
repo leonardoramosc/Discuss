@@ -17,6 +17,8 @@ defmodule DiscussWeb.Router do
   scope "/", DiscussWeb do
     pipe_through :browser
 
+    get "/", TopicController, :redirect_to_topics
+
     # Cuando alguien visite la ruta "/topics/new", maneja esa ruta
     # con el TopicController ejecutando la funcion ":new" de ese controlador
     # get "/topics/new", TopicController, :new

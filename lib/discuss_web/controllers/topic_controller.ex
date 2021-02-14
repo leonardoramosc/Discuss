@@ -13,6 +13,10 @@ defmodule DiscussWeb.TopicController do
     render(conn, "index.html", topics: topics)
   end
 
+  def redirect_to_topics(conn, _params) do
+    redirect(conn, to: "/topics")
+  end
+
   def new(conn, _params) do
     changeset = Discussions.change_topic(%Topic{})
     render(conn, "new.html", changeset: changeset)

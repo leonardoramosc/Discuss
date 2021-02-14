@@ -6,6 +6,7 @@ defmodule Discuss.Discussions.Topic do
     field :title, :string
     field :upvotes, :integer, default: 0
     belongs_to :user, Discuss.Accounts.User
+    has_many :comments, Discuss.Discussions.Comment
 
     timestamps()
   end
